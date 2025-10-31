@@ -1,0 +1,20 @@
+<div class="container py-4">
+  <h3 class="mb-4">Checkout</h3>
+
+  <div class="mb-3">
+    <label>Shipping Address</label>
+    <textarea [(ngModel)]="address" class="form-control"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label>Payment Method</label>
+    <select [(ngModel)]="paymentMethod" class="form-select">
+      <option value="cod">Cash on Delivery</option>
+      <option value="card">Credit/Debit Card</option>
+    </select>
+  </div>
+
+  <h5>Total: ₹{{ cartService.getTotalPrice() }}</h5>
+
+  <button class="btn btn-success mt-3" (click)="placeOrder()">Place Order</button>
+</div>

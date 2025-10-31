@@ -1,0 +1,54 @@
+<div class="container py-4">
+  <h3 class="mb-4">Your Cart</h3>
+
+  @if (cart.length === 0) {
+    <div class="alert alert-info">Your cart is empty.</div>
+  } @else {
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th class="text-center">Quantity</th>
+          <th class="text-end">Price</th>
+          <th class="text-end">Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of cart; track item.productId) {
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                @if (item.image) {
+                  <img [src]="item.image" alt="{{ item.name }}" width="50" class="me-2">
+                }
+                <span>{{ item.name }}</span>
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-secondary" (click)="decrease(item)">-</button>
+                <span class="btn btn-light disabled">{{ item.quantity }}</span>
+                <button class="btn btn-outline-secondary" (click)="increase(item)">+</button>
+              </div>
+            </td>
+            <td class="text-end">₹{{ item.price }}</td>
+            <td class="text-end">₹{{ item.price * item.quantity }}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-danger" (click)="remove(item)">Remove</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <button class="btn btn-outline-danger" (click)="clear()">Clear Cart</button>
+      <h5>Total: ₹{{ totalPrice }}</h5>
+    </div>
+
+    <div class="text-end mt-3">
+      <button class="btn btn-success" (click)="goToCheckout()">Proceed to Checkout</button>
+    </div>
+  }
+</div>

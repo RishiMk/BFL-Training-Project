@@ -1,0 +1,113 @@
+<div class="container py-4">
+  @if (product) {
+    <!-- Category Banner -->
+    @if (product.categoryId?.image) {
+      <div class="mb-4">
+        <img
+          [src]="product.categoryId.image.url"
+          [alt]="product.categoryId.image.alt"
+          class="img-fluid w-100"
+          style="max-height: 300px; object-fit: cover;"
+        />
+        <h5 class="mt-2 text-muted">{{ product.categoryId.name }}</h5>
+      </div>
+    }
+
+    <div class="row">
+      <!-- Image Carousel -->
+      <div class="col-md-6">
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @for (img of product.images; track img._id) {
+              <div class="carousel-item" [class.active]="$index === 0">
+                <img
+                  [src]="img.url"
+                  [alt]="img.alt"
+                  class="d-block w-100"
+                  style="max-height: 400px; object-fit: cover;"
+                />
+              </div>
+            }
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="col-md-6">
+        <h2>{{ product.title }}</h2>
+        <p class="text-muted">₹{{ selectedVariant?.price }}</p>
+        <p>{{ product.description }}</p>
+
+        <!-- Variant List -->
+        <h5 class="mt-4">Variants</h5>
+        <ul class="list-group mb-3">
+          @for (v of product.variants; track v.sku) {
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+              (click)="selectVariant(v)"
+              [class.active]="selectedVariant?.sku === v.sku"
+              style="cursor: pointer;"
+            >
+              <span>
+                {{ v.sku }} — ₹{{ v.price }} {{ v.currency }}
+              </span>
+              @if (v.available) {
+                <span class="badge bg-success">Available</span>
+              } @else {
+                <span class="badge bg-danger">Out of Stock</span>
+              }
+            </li>
+          }
+        </ul>
+
+        <!-- Add to Cart Button -->
+        <button class="btn btn-primary" (click)="addToCart(product)">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  } @else {
+    <p>Loading product details...</p>
+  }
+</div>
+
+<!-- Toast Notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+  <div
+    class="toast align-items-center text-white bg-success border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    #cartToast
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        Product added to cart!
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>

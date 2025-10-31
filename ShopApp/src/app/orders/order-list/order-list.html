@@ -1,0 +1,35 @@
+<div class="container py-4">
+  <h3 class="mb-4">My Orders</h3>
+
+  @if (loading) {
+    <div class="alert alert-info">Loading orders...</div>
+  } @else {
+    @if (orders.length === 0) {
+      <div class="alert alert-warning">You have no orders yet.</div>
+    } @else {
+      <div class="list-group">
+        @for (order of orders; track order._id) {
+          <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h6>Order #{{ order._id }}</h6>
+                <small class="text-muted">Placed on {{ order.createdAt | date:'medium' }}</small>
+              </div>
+              <span class="badge bg-secondary">{{ order.status }}</span>
+            </div>
+
+            <ul class="mt-2">
+              @for (item of order.items; track item.productId) {
+                <li>{{ item.name }} × {{ item.quantity }} — ₹{{ item.price * item.quantity }}</li>
+              }
+            </ul>
+
+            <div class="text-end fw-bold mt-2">
+              Total: ₹{{ order.total }}
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

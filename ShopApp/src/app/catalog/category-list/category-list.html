@@ -1,0 +1,16 @@
+<div class="container py-3">
+  <h3 class="mb-4">Shop by Category</h3>
+  <div class="row g-3">
+    @for (c of categories; track c._id) {
+      <div class="col-6 col-md-3">
+        <div class="card h-100 shadow-sm">
+          <img [src]="c.image?.url" [alt]="c.image?.alt" class="card-img-top">
+          <div class="card-body text-center">
+            <h6 class="card-title">{{ c.name }}</h6>
+            <a [routerLink]="['/category', c.slug]" class="stretched-link"></a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

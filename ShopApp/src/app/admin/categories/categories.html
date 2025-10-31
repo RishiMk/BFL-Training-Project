@@ -1,0 +1,17 @@
+<div class="container py-4">
+  <h3>Manage Categories</h3>
+
+  <div class="mb-3 d-flex">
+    <input [(ngModel)]="newCategory" class="form-control me-2" placeholder="New category name">
+    <button class="btn btn-primary" (click)="add()">Add</button>
+  </div>
+
+  <ul class="list-group">
+    @for (c of categories; track c._id) {
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ c.name }}
+        <button class="btn btn-sm btn-danger" (click)="delete(c._id)">Delete</button>
+      </li>
+    }
+  </ul>
+</div>

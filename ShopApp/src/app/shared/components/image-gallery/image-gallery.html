@@ -1,0 +1,12 @@
+<div class="image-gallery">
+  <div class="main mb-2">
+    <img [src]="images[selectedIndex]?.url" [alt]="images[selectedIndex]?.alt" class="img-fluid">
+  </div>
+  <div class="thumbnails d-flex gap-2">
+    @for (img of images; let i = $index; track i) {
+      <img [src]="img.url" [alt]="img.alt" class="img-thumbnail"
+           [class.border-primary]="i === selectedIndex"
+           (click)="select(i)">
+    }
+  </div>
+</div>
