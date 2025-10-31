@@ -1,0 +1,44 @@
+# BFL Training Project
+
+This is a full-stack web application built with Angular for the frontend (`ShopApp`) and Node.js/Express for the backend (`server`). It demonstrates a basic e-commerce or training platform setup.
+
+## 📁 Project Structure
+
+project/
+├── ShopApp/ # Angular 
+└── server/ # Node.js backend
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/RishiMk/BFL-Training-Project.git
+cd BFL-Training-Project
+
+To Open in VS Code
+run in turminal : code .
+
+
+#In both folders, run:
+cd server
+npm install
+
+cd ../ShopApp
+npm install
+
+#Start the backend server
+bash
+cd server
+node server.js
+
+#Start the Angular frontend
+bash
+cd ../ShopApp
+ng serve
+
+
+#🌐 View the App
+#Once both servers are running, open your browser and go to:
+Code
+http://localhost:4200
